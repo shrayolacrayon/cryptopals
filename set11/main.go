@@ -1,4 +1,4 @@
-package set11
+package main
 
 import (
 	"encoding/base64"
