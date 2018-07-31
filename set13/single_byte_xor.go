@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-func createTrainingMap(filePath string) map[rune]int {
+func CreateTrainingMap(filePath string) map[rune]int {
 	f, err := os.Open(filePath)
 	if err != nil {
 		panic(err)
@@ -40,8 +40,7 @@ func compare(output []byte, training map[rune]int) int {
 	return sum
 }
 
-func XORChar(input string) (rune, []byte, int) {
-	trainingMap := createTrainingMap("testdata/11-0.txt")
+func XORChar(input string, training map[rune]int) (rune, []byte, int) {
 
 	decodedInput, err := hex.DecodeString(input)
 	outputMap := map[rune][]byte{}
