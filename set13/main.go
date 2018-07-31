@@ -1,8 +1,7 @@
-package main
+package set13
 
 import (
 	"encoding/hex"
-	"fmt"
 	"os"
 )
 
@@ -18,7 +17,6 @@ func createTrainingMap(filePath string) map[rune]int {
 		_, err := f.Read(bytez)
 
 		if err != nil {
-			fmt.Println(err)
 			break
 		}
 		for _, b := range string(bytez) {
@@ -42,7 +40,9 @@ func compare(output []byte, training map[rune]int) int {
 	return sum
 }
 
-func xorChar(input string, trainingMap map[rune]int) (rune, []byte) {
+func XORChar(input string) (rune, []byte, int) {
+	trainingMap := createTrainingMap("testdata/11-0.txt")
+
 	decodedInput, err := hex.DecodeString(input)
 	outputMap := map[rune][]byte{}
 	if err != nil {
@@ -65,14 +65,6 @@ func xorChar(input string, trainingMap map[rune]int) (rune, []byte) {
 			maxSum = sum
 		}
 	}
-	return maxChar, outputMap[maxChar]
-
-}
-
-func main() {
-	input := "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736"
-	trainingMap := createTrainingMap("testdata/11-0.txt")
-	xorVal, output := xorChar(input, trainingMap)
-	fmt.Printf("%#U : %s", xorVal, output)
+	return maxChar, outputMap[maxChar], maxSum
 
 }
