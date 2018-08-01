@@ -13,6 +13,24 @@ import (
 
 const KEYSIZE = 40
 
+func DecryptBase64(filepath string) []byte {
+	// read in the whole file
+	f, err := os.Open(filepath)
+	if err != nil {
+		panic(err)
+	}
+	allBytes, err := ioutil.ReadAll(f)
+	if err != nil {
+		panic(err)
+	}
+
+	allBytes, err = base64.StdEncoding.DecodeString(string(allBytes))
+	if err != nil {
+		panic(err)
+	}
+	return allBytes
+}
+
 // Write a function to compute the edit distance/Hamming distance between two strings.
 // The Hamming distance is just the number of differing bits.
 func HammingDistance(x, y []byte) int {
@@ -99,21 +117,7 @@ func breakXOR(allBytes []byte, trainingPath string, keysize int) {
 }
 func BreakXOR(trainingFilepath, filepath string) {
 	distances := make([]float64, KEYSIZE)
-	// read in the whole file
-	f, err := os.Open(filepath)
-	if err != nil {
-		panic(err)
-	}
-	allBytes, err := ioutil.ReadAll(f)
-	if err != nil {
-		panic(err)
-	}
-
-	allBytes, err = base64.StdEncoding.DecodeString(string(allBytes))
-	if err != nil {
-		panic(err)
-	}
-
+	allBytes := DecryptBase64(filepath)
 	/*hexString := hex.EncodeToString(allBytes)
 	allBytes = []byte(hexString)*/
 	for keysize := 3; keysize < KEYSIZE; keysize++ {
