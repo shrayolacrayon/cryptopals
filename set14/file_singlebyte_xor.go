@@ -34,5 +34,4 @@ func FindEncryptedPhrase(inputFilepath, trainingFilepath string) {
 	}
 	fmt.Printf("Input: %s, CHAR: %#U, Phrase: %s", maxInput, maxChar, maxOutput)
 	// Input: 7b5a4215415d544115415d5015455447414c155c46155f4058455c5b523f, CHAR: U+0035 '5', Phrase: Now that the party is jumping
-
 }

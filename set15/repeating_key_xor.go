@@ -2,7 +2,6 @@ package set15
 
 import (
 	"encoding/hex"
-	"fmt"
 
 	"github.com/shrayolacrayon/cryptopals/set12"
 )
