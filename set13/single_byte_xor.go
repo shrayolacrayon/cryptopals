@@ -25,7 +25,7 @@ func CreateTrainingMap(filePath string) map[rune]int {
 	return totalMap
 }
 
-func compare(output []byte, training map[rune]int) int {
+func CompareOutput(output []byte, training map[rune]int) int {
 	var sum int
 	for _, b := range string(output) {
 		// look up the frequencies
@@ -54,7 +54,7 @@ func XORChar(input string, training map[rune]int) (rune, []byte, int) {
 			output[j] = byte(i) ^ d
 		}
 		outputMap[rune(i)] = output
-		sum := compare(output, training)
+		sum := CompareOutput(output, training)
 		if sum > maxSum {
 			maxChar = rune(i)
 			maxSum = sum

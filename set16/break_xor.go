@@ -103,21 +103,21 @@ func getNormalizedDistance(allBytes []byte, keysize, numBlocks int) float64 {
 	return sum
 }
 
-func breakXOR(allBytes []byte, trainingPath string, keysize int) {
+func breakXOR(allBytes []byte, training map[rune]int, keysize int) []byte {
 	allLines := split(allBytes, keysize)
 	transposed := transpose(allLines)
-	training := set13.CreateTrainingMap(trainingPath)
 	xorKey := []rune{}
 	for _, line := range transposed {
 		char, _, _ := set13.XORChar(hex.EncodeToString(line), training)
 		xorKey = append(xorKey, char)
 	}
-	fmt.Printf("%s \n", string(xorKey))
-	//Terminator X: Bring the noise
+	return []byte(string(xorKey))
 }
-func BreakXOR(trainingFilepath, filepath string) {
+func BreakXOR(trainingFilepath, filepath string) []byte {
 	distances := make([]float64, KEYSIZE)
 	allBytes := DecryptBase64(filepath)
+	training := set13.CreateTrainingMap(trainingFilepath)
+
 	/*hexString := hex.EncodeToString(allBytes)
 	allBytes = []byte(hexString)*/
 	for keysize := 3; keysize < KEYSIZE; keysize++ {
@@ -125,12 +125,26 @@ func BreakXOR(trainingFilepath, filepath string) {
 		//and find the edit distance between them. Normalize this result by dividing by KEYSIZE.
 		normalized := getNormalizedDistance(allBytes, keysize, 4)
 		distances[keysize] = normalized
-		fmt.Printf("KEYSIZE: %d normalized: %f \n", keysize, normalized)
 	}
 	ignoreList := []int{}
+	xorKeys := [][]byte{}
 	for i := 0; i < 3; i++ {
 		keysize, _ := findMinDistance(distances, ignoreList)
 		ignoreList = append(ignoreList, keysize)
-		breakXOR(allBytes, trainingFilepath, keysize)
+		xorKey := breakXOR(allBytes, training, keysize)
+		xorKeys = append(xorKeys, xorKey)
 	}
+
+	// compare the xor keys to english
+	var maxSum int
+	var winningKey []byte
+	for _, key := range xorKeys {
+		sum := set13.CompareOutput(key, training)
+		if sum > maxSum {
+			maxSum = sum
+			winningKey = key
+		}
+	}
+	return winningKey
+
 }

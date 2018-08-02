@@ -15,5 +15,6 @@ func main() {
 	distance := set16.HammingDistance(input1, input2)
 	fmt.Printf("Distance is %d, expected %d - %v \n", distance, expectedDistance, (distance == expectedDistance))
 
-	set16.BreakXOR("testdata/11-0.txt", "testdata/challenge6.txt")
+	key := set16.BreakXOR("testdata/11-0.txt", "testdata/challenge6.txt")
+	fmt.Println(string(key))
 }
