@@ -2,6 +2,6 @@
 
 > https://cryptopals.com/
 
-### [Solutions](github.com/shrayolacrayon/cryptopals/Solutions.md)
+Here are [notes](https://github.com/shrayolacrayon/cryptopals/blob/master/Notes.md) on the challenges I've worked on. 
 
 

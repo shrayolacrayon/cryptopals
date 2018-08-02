@@ -1,34 +1,40 @@
-## My Solutions
+# Notes
+## Set 1
+### [Challenge 1](https://cryptopals.com/sets/1/challenges/1)
+**Convert hex to base64**
 
-### Set 1
+***Always operate on raw bytes, never on encoded strings. Only use hex and base64 for pretty-printing.***
 
-#### [Challenge 1](https://cryptopals.com/sets/1/challenges/1)
-Convert hex to base64
-> Always operate on raw bytes, never on encoded strings. Only use hex and base64 for pretty-printing.
+*`"I'm killing your brain like a poisonous mushroom"`*
 
-##### Uncovered phrases
-> "I'm killing your brain like a poisonous mushroom"
+### [Challenge 2](https://cryptopals.com/sets/1/challenges/2)
+**Fixed XOR**
 
-#### [Challenge 2](https://cryptopals.com/sets/1/challenges/2)
-##### Uncovered phrases
-> "the kid don't play"
+*`"the kid don't play"`* 
 
-#### [Challenge 3](https://cryptopals.com/sets/1/challenges/3)
-##### Uncovered phrases
-> "Cooking MC's like a pound of bacon"
+### [Challenge 3](https://cryptopals.com/sets/1/challenges/3)
+**Single character XOR**
 
-#### [Challenge 4](https://cryptopals.com/sets/1/challenges/4)
-##### Uncovered phrases
-> "Now that the party is jumping"
-#### [Challenge 5](https://cryptopals.com/sets/1/challenges/5)
-##### Uncovered phrases
+*`"Cooking MC's like a pound of bacon`*
 
-#### [Challenge 6](https://cryptopals.com/sets/1/challenges/6)
-##### Uncovered phrases
-"Terminator X: Bring the noise"
+### [Challenge 4](https://cryptopals.com/sets/1/challenges/4)
+**Find the XOR'ed phrase**
 
-#### [Challenge 7](https://cryptopals.com/sets/1/challenges/7)
-##### Uncovered phrases
+*`"Now that the party is jumping"`*
+### [Challenge 5](https://cryptopals.com/sets/1/challenges/5)
+**Implement repeating key XOR**
+```
+Burning 'em, if you ain't quick and nimble
+I go crazy when I hear a cymbal
+```
+
+### [Challenge 6](https://cryptopals.com/sets/1/challenges/6)
+**Break repeating key XOR**
+
+*`"Terminator X: Bring the noise"`*
+
+### [Challenge 7](https://cryptopals.com/sets/1/challenges/7)
+**AES in ECB mode**
 
 ```
 I'm back and I'm ringin' the bell 
@@ -111,12 +117,18 @@ Play that funky music A little louder now
 Play that funky music, white boy Come on, Come on, Come on 
 Play that funky music 
 ```
-#### [Challenge 8](https://cryptopals.com/sets/1/challenges/8)
-##### Uncovered phrases
+### [Challenge 8](https://cryptopals.com/sets/1/challenges/8)
+**Detect AES in ECB mode aka break it**
+I couldn't find any phrases in this one, apart from noticing that one cipher had repeated cipher-text blocks. 
 
-### Set 2
-#### [Challenge 9](https://cryptopals.com/sets/1/challenges/9)
-#### [Challenge 10](https://cryptopals.com/sets/1/challenges/10)
+`d880619740a8a19b7840a8a31c810a3d08649af70dc06f4fd5d2d69c744cd283e2dd052f6b641dbf9d11b0348542bb5708649af70dc06f4fd5d2d69c744cd2839475c9dfdbc1d46597949d9c7e82bf5a08649af70dc06f4fd5d2d69c744cd28397a93eab8d6aecd566489154789a6b0308649af70dc06f4fd5d2d69c744cd283d403180c98c8f6db1f2a3f9c4040deb0ab51b29933f2c123c58386b06fba186a`
+
+## Set 2
+### [Challenge 9](https://cryptopals.com/sets/1/challenges/9)
+**PKCS#7 padding**
+Note: When printing this using `fmt.Printf("%s")` the bytes did not show up, but printing the []byte shows the padded bytes. 
+
+### [Challenge 10](https://cryptopals.com/sets/1/challenges/10)[WIP](https://github.com/shrayolacrayon/cryptopals/tree/master/set210)
 
 ```
 CBC mode is a block cipher mode that allows us to encrypt irregularly-sized messages, despite the fact that a block cipher natively only transforms individual blocks.
@@ -128,4 +140,4 @@ The first plaintext block, which has no associated previous ciphertext block, is
 Implement CBC mode by hand by taking the ECB function you wrote earlier, making it encrypt instead of decrypt (verify this by decrypting whatever you encrypt to test), and using your XOR function from the previous exercise to combine them. 
 
 ```
-#### [Challenge 11](https://cryptopals.com/sets/1/challenges/11)
+### [Challenge 11](https://cryptopals.com/sets/1/challenges/11)
