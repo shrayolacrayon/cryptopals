@@ -29,3 +29,18 @@ func Decrypt(filepath string) []byte {
 	return allDecrypted
 
 }
+
+func EncryptBlock(allBytes []byte, key []byte) ([]byte, error) {
+	cipher, err := aes.NewCipher(key)
+	if err != nil {
+		return nil, err
+	}
+
+	destination := make([]byte, len(src))
+	err = cipher.Encrypt(destination, allBytes)
+	if err != nil {
+		return nil, err
+	}
+	return destination, nil
+
+}
