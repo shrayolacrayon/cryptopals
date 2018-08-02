@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	set14.FindEncryptedPhrase("testdata/s4.txt")
+	set14.FindEncryptedPhrase("testdata/s4.txt", "testdata/11-0.txt")
 }

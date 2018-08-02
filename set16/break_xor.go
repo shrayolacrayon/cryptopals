@@ -1,35 +1,15 @@
 package set16
 
 import (
-	"encoding/base64"
 	"encoding/hex"
 	"fmt"
-	"io/ioutil"
 	"math"
-	"os"
 
 	"github.com/shrayolacrayon/cryptopals/set13"
+	"github.com/shrayolacrayon/cryptopals/util"
 )
 
 const KEYSIZE = 40
-
-func DecryptBase64(filepath string) []byte {
-	// read in the whole file
-	f, err := os.Open(filepath)
-	if err != nil {
-		panic(err)
-	}
-	allBytes, err := ioutil.ReadAll(f)
-	if err != nil {
-		panic(err)
-	}
-
-	allBytes, err = base64.StdEncoding.DecodeString(string(allBytes))
-	if err != nil {
-		panic(err)
-	}
-	return allBytes
-}
 
 // Write a function to compute the edit distance/Hamming distance between two strings.
 // The Hamming distance is just the number of differing bits.
@@ -68,19 +48,6 @@ func findMinDistance(distances []float64, ignoreKeys []int) (int, float64) {
 	return keysize, minDistance
 }
 
-func split(allBytes []byte, keysize int) [][]byte {
-	var chunk []byte
-	chunks := make([][]byte, 0, len(allBytes)/keysize+1)
-	for len(allBytes) >= keysize {
-		chunk, allBytes = allBytes[:keysize], allBytes[keysize:]
-		chunks = append(chunks, chunk)
-	}
-	//if len(allBytes) > 0 {
-	//	chunks = append(chunks, allBytes[:len(allBytes)])
-	//}
-	return chunks
-}
-
 func transpose(matrix [][]byte) [][]byte {
 	transposed := make([][]byte, len(matrix[0]))
 	for row := 0; row < len(matrix); row++ {
@@ -104,7 +71,7 @@ func getNormalizedDistance(allBytes []byte, keysize, numBlocks int) float64 {
 }
 
 func breakXOR(allBytes []byte, training map[rune]int, keysize int) []byte {
-	allLines := split(allBytes, keysize)
+	allLines := util.CreateBlocks(allBytes, keysize)
 	transposed := transpose(allLines)
 	xorKey := []rune{}
 	for _, line := range transposed {
@@ -113,9 +80,12 @@ func breakXOR(allBytes []byte, training map[rune]int, keysize int) []byte {
 	}
 	return []byte(string(xorKey))
 }
-func BreakXOR(trainingFilepath, filepath string) []byte {
+func BreakXOR(trainingFilepath, filepath string) ([]byte, error) {
 	distances := make([]float64, KEYSIZE)
-	allBytes := DecryptBase64(filepath)
+	allBytes, err := util.DecryptBase64File(filepath)
+	if err != nil {
+		return nil, err
+	}
 	training := set13.CreateTrainingMap(trainingFilepath)
 
 	/*hexString := hex.EncodeToString(allBytes)
@@ -145,6 +115,6 @@ func BreakXOR(trainingFilepath, filepath string) []byte {
 			winningKey = key
 		}
 	}
-	return winningKey
+	return winningKey, nil
 
 }

@@ -7,6 +7,9 @@ import (
 )
 
 func main() {
-	encrypted := set18.DecryptFiles("testdata/challenge8.txt")
+	encrypted, err := set18.DecryptFiles("testdata/challenge8.txt")
+	if err != nil {
+		panic(err)
+	}
 	fmt.Printf("%x \n", encrypted)
 }
