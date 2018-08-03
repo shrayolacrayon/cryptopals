@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/base64"
 	"fmt"
 
 	"github.com/shrayolacrayon/cryptopals/set210"
@@ -14,14 +15,13 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	//bytes, err := base64.StdEncoding.DecodeString(string(allBytes))
-	//if err != nil {
-	//		panic(err)
-	//	}
-
-	output, err := set210.CBCOtherDecrypt(allBytes, []byte(secret))
+	bytes, err := base64.StdEncoding.DecodeString(string(allBytes))
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(string(output))
+
+	output, err := set210.CBCDecrypt(bytes, []byte(secret))
+	if err != nil {
+		panic(err)
+	}
 }
