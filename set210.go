@@ -4,7 +4,7 @@ import (
 	"encoding/base64"
 	"fmt"
 
-	"github.com/shrayolacrayon/cryptopals/set210"
+	"github.com/shrayolacrayon/cryptopals/cbc"
 	"github.com/shrayolacrayon/cryptopals/util"
 )
 
@@ -20,8 +20,10 @@ func main() {
 		panic(err)
 	}
 
-	output, err := set210.CBCDecrypt(bytes, []byte(secret))
+	output, err := cbc.CBCDecrypt(bytes, []byte(secret))
 	if err != nil {
 		panic(err)
 	}
+
+	fmt.Println(string(output))
 }

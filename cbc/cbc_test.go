@@ -1,4 +1,4 @@
-package set210
+package cbc
 
 import (
 	"fmt"

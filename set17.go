@@ -3,10 +3,10 @@ package main
 import (
 	"fmt"
 
-	"github.com/shrayolacrayon/cryptopals/set17"
+	"github.com/shrayolacrayon/cryptopals/ecb"
 )
 
 func main() {
-	b := set17.Decrypt("testdata/challenge7.txt")
+	b := ecb.Decrypt("testdata/challenge7.txt")
 	fmt.Println(string(b))
 }

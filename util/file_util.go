@@ -43,3 +43,21 @@ func CreateBlocks(allBytes []byte, size int) [][]byte {
 	}
 	return blocks
 }
+
+func SumBlockCounts(data []byte) float64 {
+	blockCounts := map[string]int{}
+	// figure out if the line is decoded by an ecb
+	// it can only be a base4 so 16 or 32 bytes, repeated in some way
+	// split up the encrypted into 16 bytes and see if something is repeated
+	keysize := 16
+	blocks := CreateBlocks(data, keysize)
+	for _, block := range blocks {
+		blockCounts[string(block)]++
+	}
+	sum := 0
+	// sum the squares?
+	for _, count := range blockCounts {
+		sum += count * count
+	}
+	return float64(sum) / float64(len(blocks))
+}

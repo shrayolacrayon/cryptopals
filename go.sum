@@ -1,0 +1,3 @@
+github.com/shrayolacrayon/cryptopals v0.0.0-20180803195717-c7aacf8bfa48 h1:alcZ9JBgZoWZwE9v7NoTSzXHnBXLG0eWdmjuiyBgN9w=
+github.com/shrayolacrayon/cryptopals v0.0.0-20180803195717-c7aacf8bfa48/go.mod h1:ZqJ/s9SaIaOOTuS9X+hF7ypANYDqWbw5LRPl0N5GMJs=
+github.com/spacemonkeygo/openssl v0.0.0-20180727012650-5da517866c3d/go.mod h1:JKl1QDiTtYpJHv851o3JOAAXuFGsp62rZ/h4v1RGTto=

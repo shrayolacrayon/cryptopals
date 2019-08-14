@@ -1,15 +1,15 @@
-package set210
+package cbc
 
 import (
 	"crypto/aes"
 	"encoding/hex"
 
+	"github.com/shrayolacrayon/cryptopals/pkcs7"
 	"github.com/shrayolacrayon/cryptopals/set12"
-	"github.com/shrayolacrayon/cryptopals/set209"
 	"github.com/shrayolacrayon/cryptopals/util"
 )
 
-func EncryptBlock(block []byte, key []byte) ([]byte, error) {
+func AESEncryptBlock(block []byte, key []byte) ([]byte, error) {
 	cipher, err := aes.NewCipher(key)
 	if err != nil {
 		return nil, err
@@ -19,7 +19,7 @@ func EncryptBlock(block []byte, key []byte) ([]byte, error) {
 	return destination, nil
 }
 
-func DecryptBlock(block []byte, key []byte) ([]byte, error) {
+func AESDecryptBlock(block []byte, key []byte) ([]byte, error) {
 	cipher, err := aes.NewCipher(key)
 	if err != nil {
 		return nil, err
@@ -39,7 +39,7 @@ func CBCFile(inputFilepath string, key []byte) ([]byte, error) {
 
 func CBCEncrypt(allBytes []byte, key []byte) ([]byte, error) {
 
-	paddedAllBytes := set209.PKCS7(allBytes, len(key))
+	paddedAllBytes := pkcs7.PKCS7(allBytes, len(key))
 
 	blocks := util.CreateBlocks(paddedAllBytes, len(key))
 
@@ -57,7 +57,7 @@ func CBCEncrypt(allBytes []byte, key []byte) ([]byte, error) {
 			return nil, err
 		}
 
-		encrypted, err := EncryptBlock(combinedBlock, key)
+		encrypted, err := AESEncryptBlock(combinedBlock, key)
 		if err != nil {
 			return nil, err
 		}
@@ -77,7 +77,7 @@ func CBCDecrypt(input []byte, key []byte) ([]byte, error) {
 	}
 	blocks := append([][]byte{iv}, util.CreateBlocks(input, len(key))...)
 	for i := 1; i < len(blocks); i++ {
-		decrypted, err := DecryptBlock(blocks[i], key)
+		decrypted, err := AESDecryptBlock(blocks[i], key)
 		if err != nil {
 			return nil, err
 		}
